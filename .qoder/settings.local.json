@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /home/ubuntu/project/lingma-proxy/internal 2>/dev/null; echo \"---\"; ls -R /home/ubuntu/project/lingma-proxy/internal 2>/dev/null | head -100)"
+    ]
+  }
+}
