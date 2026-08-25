@@ -1,8 +1,13 @@
 name: Release (fork CLI)
 
-# Fork-only CLI release, kept separate from release.yml so upstream PRs stay
-# clean. Manual dispatch only, so it never double-runs with release.yml (on "v*").
+# Fork-only CLI release. This lives on the dedicated `fork-release` branch,
+# where the upstream release.yml has been removed, so pushing a `v*` tag runs
+# ONLY this workflow (no double-run, no desktop build, no upstream GHCR push).
+# Also dispatchable manually.
 on:
+  push:
+    tags:
+      - "v*"
   workflow_dispatch:
     inputs:
       tag:
@@ -13,7 +18,7 @@ permissions:
   contents: write
 
 env:
-  RELEASE_TAG: ${{ github.event.inputs.tag }}
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
 
 jobs:
   test:

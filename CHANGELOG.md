@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased (target: v1.6.12-morpheus.1)
+## Unreleased (target: v1.6.12-morpheus.2)
+
+## v1.6.12-morpheus.2 - 2026-08-25
+
+- Server tools are now model-decided and mirrored to the OpenAI Chat Completions API: `web_search` (injected when the client declares a hosted web_search on Anthropic, or via `LINGMA_INJECT_MEDIA_TOOLS` on OpenAI) and `ImageSearch` are advertised to the model, executed server-side in an agentic loop, and hidden from the client; genuine client tools pass through. Dropped `ImageGen` from tool injection (chat streams cannot deliver image bytes); image generation stays on `/v1/images/generations`.
+- Added a `TextPolish` server tool (gateway `voice/polish`): cleans up raw / unpunctuated text without changing wording.
+- Strip the gateway's embedded AIGC metadata (producer identity + per-image tracking IDs) from generated images before relaying.
+- Optional blind-watermark payload disruption for generated images (`LINGMA_IMAGE_DEWATERMARK`, off by default): a non-invertible geometric desync + JPEG pass corrupts the embedded watermark payload while staying visually near-lossless.
+- Fixes: aggregate usage/credits across server-tool agentic rounds; stop the agentic loop on client disconnect; treat an IEND-less PNG as unparseable when stripping metadata.
+- 分叉版本 morpheus.2:服务端工具改为"模型自行决定调用"并镜像到 OpenAI Chat Completions;移除聊天注入里的 ImageGen(改走 /v1/images/generations);新增 TextPolish(网关 voice/polish 文本润色);转接前剥除生图内嵌 AIGC 元数据(厂商身份+逐图追踪 ID);可选生图盲水印载荷破坏(LINGMA_IMAGE_DEWATERMARK,默认关);修复 usage/credits 跨轮聚合、客户端断连停止循环、无 IEND 的 PNG 视为不可解析。
 
 ## v1.6.12-morpheus.1 - 2026-08-24
 
