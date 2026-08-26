@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased (target: v1.6.12-morpheus.2)
+## Unreleased (target: v1.6.12-morpheus.3)
+
+## v1.6.12-morpheus.3 - 2026-08-26
+
+- `web_search` now exposes the gateway oneSearch knobs to the model: a `timeRange` recency filter (`NoLimit`/`OneDay`/`OneWeek`/`OneMonth`/`OneYear`) plus `summary` / `mainText` / `markdownText` content switches; formatted results surface the richest available field (mainText > markdownText > summary > snippet).
+- The cosy signing version is now derived from the installed QoderCN CLI's `version.txt` (matching what the real client sends), falling back to `1.1.28`; explicit `--remote-version` / `LINGMA_REMOTE_VERSION` / `config.remote_version` still take precedence.
+- 分叉版本 morpheus.3:web_search 向模型开放网关 oneSearch 的 `timeRange` 时间过滤(NoLimit/OneDay/OneWeek/OneMonth/OneYear)与 `summary`/`mainText`/`markdownText` 内容开关,格式化结果取最丰富字段(mainText > markdownText > summary > snippet);cosy 签名版本改为读取本机 QoderCN CLI 的 `version.txt`(对齐真实客户端,兜底 1.1.28),显式 `--remote-version` / `LINGMA_REMOTE_VERSION` / 配置仍优先。
 
 ## v1.6.12-morpheus.2 - 2026-08-25
 
